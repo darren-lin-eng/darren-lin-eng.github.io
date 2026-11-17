@@ -359,6 +359,38 @@
   .copy.done::after { opacity: 1; transform: none; }
   .nojs { margin: 0 0 12px; font-size: 0.85rem; color: var(--muted); }
 
+  /* Eastern Time clock */
+  .clock {
+    position: absolute;
+    top: calc(env(safe-area-inset-top, 0px) + 16px);
+    left: 20px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+    transition: opacity 0.8s ease 0.4s;
+    pointer-events: none;
+    user-select: none;
+  }
+  .clock.on { opacity: 1; }
+  .clock .tz { color: var(--accent); }
+  .clock .tick {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: tick 2s ease-in-out infinite;
+  }
+  @keyframes tick { 50% { opacity: 0.25; } }
+  @media (min-width: 960px) {
+    .clock { position: fixed; top: auto; bottom: 24px; left: 28px; }
+  }
+
   a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   footer {
@@ -653,6 +685,8 @@
 
   <div class="backdrop" aria-hidden="true"></div>
 
+  <div class="clock" id="clock" aria-hidden="true"><span class="tick"></span><span id="clock-time">--:--:-- --</span><span class="tz" id="clock-tz">EST</span></div>
+
   <div class="wrap">
     <header class="hero">
       <h1 class="reveal" style="--i:0">Darren Lin</h1>
@@ -830,7 +864,7 @@
     </main>
 
     <footer class="reveal" style="--i:8">
-      &copy; <span id="year">2026</span> Darren Lin
+      &copy; <span id="year">2026</span> Darren Lin &middot; Cookie-free analytics
     </footer>
   </div>
 
@@ -972,6 +1006,27 @@
         });
       });
     });
+
+    /* Live Eastern Time clock (shows EST or EDT depending on the date) */
+    var clockEl = document.getElementById("clock");
+    var clockTime = document.getElementById("clock-time");
+    var clockTz = document.getElementById("clock-tz");
+    try {
+      var timeFmt = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true });
+      var zoneFmt = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", timeZoneName: "short" });
+      var tickClock = function () {
+        var now = new Date();
+        clockTime.textContent = timeFmt.format(now);
+        var parts = zoneFmt.formatToParts(now);
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].type === "timeZoneName") clockTz.textContent = parts[i].value;
+        }
+        clockEl.classList.add("on");
+        setTimeout(tickClock, 1000 - now.getMilliseconds());
+      };
+      tickClock();
+    } catch (err) {}
   </script>
+  <script data-goatcounter="https://darren-lin-eng.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
