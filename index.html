@@ -395,8 +395,6 @@
     width: 100%;
     height: 100%;
     overflow: visible;
-    transform: translate3d(0, var(--py, 0px), 0);
-    will-change: transform;
   }
   .scene path {
     fill: none;
@@ -974,21 +972,6 @@
         });
       });
     });
-
-    /* Tower drifts slowly as you scroll */
-    var towerSvg = document.querySelector(".scene svg");
-    if (towerSvg && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      var ticking = false;
-      var drift = function () {
-        var y = Math.min(window.scrollY || 0, 600);
-        towerSvg.style.setProperty("--py", (y * 0.14).toFixed(1) + "px");
-        ticking = false;
-      };
-      window.addEventListener("scroll", function () {
-        if (!ticking) { ticking = true; requestAnimationFrame(drift); }
-      }, { passive: true });
-      drift();
-    }
   </script>
 </body>
 </html>
