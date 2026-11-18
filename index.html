@@ -122,10 +122,16 @@
 <meta name="theme-color" content="#F3EEE4" media="(prefers-color-scheme: light)">
 <meta name="color-scheme" content="dark light">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Serif:wght@500&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/plex-serif-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-sans-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-sans-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/plex-mono-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+  @font-face { font-family: "IBM Plex Serif"; font-weight: 500; font-style: normal; font-display: swap; src: url("/fonts/plex-serif-500.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-style: normal; font-display: swap; src: url("/fonts/plex-sans-400.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 500; font-style: normal; font-display: swap; src: url("/fonts/plex-sans-500.woff2") format("woff2"); }
+  @font-face { font-family: "IBM Plex Mono"; font-weight: 400; font-style: normal; font-display: swap; src: url("/fonts/plex-mono-400.woff2") format("woff2"); }
+
   :root {
     --bg: #0F1115;
     --surface: #1A1D24;
@@ -235,7 +241,7 @@
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
   }
-  .primary .fmt { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; opacity: 0.85; }
+  .primary .fmt { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; }
   .primary:hover { background: var(--text); }
   .primary:active { transform: translateY(1px); }
   .primary:focus-visible { outline-color: var(--text); }
@@ -376,7 +382,7 @@
   .copy.done::after { opacity: 1; transform: none; }
   .nojs { margin: 0 0 12px; font-size: 0.85rem; color: var(--muted); }
 
-  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 
   ::selection { background: var(--accent); color: var(--bg); }
