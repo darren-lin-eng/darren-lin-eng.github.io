@@ -8,7 +8,7 @@
 <meta name="author" content="Darren Lin">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://darren-lin-eng.github.io/">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%230F1115%27%2F%3E%3Crect%20x%3D%271.5%27%20y%3D%271.5%27%20width%3D%2761%27%20height%3D%2761%27%20rx%3D%2712.5%27%20fill%3D%27none%27%20stroke%3D%27%237C9CFF%27%20stroke-opacity%3D%27.35%27%20stroke-width%3D%273%27%2F%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%237C9CFF%27%20stroke-width%3D%275.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M15%2019V45H23Q33%2045%2033%2032Q33%2019%2023%2019Z%27%2F%3E%3Cpath%20d%3D%27M41%2019V45H52%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%230F1115%27%2F%3E%3Crect%20x%3D%271.5%27%20y%3D%271.5%27%20width%3D%2761%27%20height%3D%2761%27%20rx%3D%2712.5%27%20fill%3D%27none%27%20stroke%3D%27%23FA4616%27%20stroke-opacity%3D%27.35%27%20stroke-width%3D%273%27%2F%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23FA4616%27%20stroke-width%3D%275.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M15%2019V45H23Q33%2045%2033%2032Q33%2019%2023%2019Z%27%2F%3E%3Cpath%20d%3D%27M41%2019V45H52%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:type" content="profile">
 <meta property="og:site_name" content="Darren Lin">
@@ -118,20 +118,37 @@
   ]
 }
 </script>
-<meta name="theme-color" content="#0F1115">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0F1115" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3EEE4" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark light">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Serif:wght@500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0F1115;
     --surface: #1A1D24;
     --text: #E8E9EC;
     --muted: #8B90A0;
-    --accent: #7C9CFF;
-    --border: rgba(232, 233, 236, 0.10);
+    --accent: #FA4616;
+    --border: rgba(232, 233, 236, 0.12);
+    --rule: rgba(232, 233, 236, 0.32);
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font-serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
+    --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F3EEE4;
+      --surface: #FBF8F1;
+      --text: #1D1A16;
+      --muted: #5E574D;
+      --accent: #B93A18;
+      --border: rgba(29, 26, 22, 0.16);
+      --rule: rgba(29, 26, 22, 0.5);
+    }
   }
 
   * { box-sizing: border-box; }
@@ -143,32 +160,13 @@
     min-height: 100dvh;
     background: var(--bg);
     color: var(--text);
-    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-family: var(--font-sans);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-  }
-
-  /* Subtle dot grid that fades in and drifts very slowly */
-  .backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0;
-    background-image: radial-gradient(rgba(232, 233, 236, 0.09) 1px, transparent 1px);
-    background-size: 28px 28px;
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 0%, transparent 75%);
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 25%, #000 0%, transparent 75%);
-    animation: backdrop-in 2.4s ease 0.3s forwards, backdrop-pan 90s linear infinite;
-  }
-  @keyframes backdrop-in { to { opacity: 1; } }
-  @keyframes backdrop-pan {
-    from { background-position: 0 0; }
-    to   { background-position: 28px 28px; }
   }
 
   .wrap {
@@ -188,24 +186,13 @@
   }
 
   h1 {
-    font-size: clamp(2.4rem, 11.5vw, 4.25rem);
-    line-height: 1.05;
-    letter-spacing: -0.04em;
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 16vw, 6.5rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
     font-weight: 500;
-    margin: 0 0 14px;
-    background: linear-gradient(100deg, #E8E9EC 0%, #E8E9EC 35%, #7C9CFF 50%, #E8E9EC 65%, #E8E9EC 100%);
-    background-size: 250% 100%;
-    background-position: 100% 0;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: sheen 6s ease-in-out 1.2s infinite;
-  }
-  @keyframes sheen {
-    0%   { background-position: 100% 0; }
-    45%  { background-position: 0% 0; }
-    100% { background-position: 0% 0; }
+    margin: 0 0 18px;
+    text-wrap: balance;
   }
 
   .subtitle {
@@ -220,68 +207,100 @@
     content: "";
     display: block;
     height: 1px;
-    width: 0;
+    width: 40px;
     flex-shrink: 0;
     align-self: flex-start;
     margin-top: 0.8em;
-    background: var(--accent);
-    animation: line-grow 1s var(--ease) 0.9s forwards;
+    background: var(--muted);
   }
-  @keyframes line-grow { to { width: 40px; } }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 28px;
+    margin-top: 32px;
+  }
+  .primary {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 2px;
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .primary .fmt { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; opacity: 0.85; }
+  .primary:hover { background: var(--text); }
+  .primary:active { transform: translateY(1px); }
+  .primary:focus-visible { outline-color: var(--text); }
+  .quiet {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--text);
+    font-size: 0.95rem;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 1px;
+  }
+  .caption {
+    margin: 0 0 40px;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  #contact { scroll-margin-top: 24px; }
 
   main { padding-bottom: 32px; }
 
   .label {
-    font-weight: 400;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin: 0 0 8px;
   }
 
-  .contact-list { display: grid; gap: 12px; }
+  .contact-list { display: grid; border-bottom: 1px solid var(--rule); }
+  .contact-list .btn, .contact-list .copy { min-height: 68px; }
 
   .btn {
-    --mx: 50%;
-    --my: 50%;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    min-height: 60px;
-    padding: 14px 18px;
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    background:
-      radial-gradient(180px circle at var(--mx) var(--my), rgba(124, 156, 255, 0.14), transparent 70%),
-      var(--surface);
+    min-height: 56px;
+    padding: 14px 0;
+    border: 0;
+    border-top: 1px solid var(--rule);
+    background: none;
     color: var(--text);
     text-decoration: none;
     font-size: 0.95rem;
     word-break: break-word;
-    overflow: hidden;
     -webkit-tap-highlight-color: transparent;
-    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
   }
-  .btn:hover { border-color: rgba(124, 156, 255, 0.55); transform: translateY(-2px); }
-  .btn:active { transform: scale(0.98); }
+  .btn:hover .detail { text-decoration: underline; text-underline-offset: 5px; }
+  .btn:active, .copy:active, .pill:active { transform: translateY(1px); }
 
   .btn .kind {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
     color: var(--muted);
     flex-shrink: 0;
   }
-  .btn .detail { color: var(--accent); text-align: right; }
+  .btn .detail { font-family: var(--font-mono); color: var(--text); text-align: right; }
   .btn .arrow {
     display: inline-block;
     margin-left: 8px;
-    transition: transform 0.3s var(--ease);
   }
-  .btn:hover .arrow { transform: translateX(4px); }
 
   .sr-only {
     position: absolute;
@@ -296,9 +315,8 @@
   }
 
   /* Contact rows: link + copy button */
-  .contact { display: flex; gap: 8px; align-items: stretch; }
+  .contact { display: flex; gap: 0; align-items: stretch; }
   .contact .btn { flex: 1; min-width: 0; }
-  .contact .btn:hover { transform: none; }
   .contact .btn .detail { font-size: min(0.88rem, 4.1vw); }
   .val.pop { display: inline-block; animation: valin 0.6s var(--ease); }
   @keyframes valin { from { opacity: 0; transform: translateY(5px); } }
@@ -306,21 +324,21 @@
   .copy {
     position: relative;
     flex-shrink: 0;
-    width: 56px;
+    width: 48px;
     padding: 0;
     display: grid;
     place-items: center;
     font: inherit;
     color: var(--muted);
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
+    background: none;
+    border: 0;
+    border-top: 1px solid var(--rule);
+    border-radius: 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+    transition: color 0.3s var(--ease);
   }
-  .copy:hover { color: var(--accent); border-color: rgba(124, 156, 255, 0.55); }
-  .copy:active { transform: scale(0.94); }
+  .copy:hover { color: var(--text); }
   .copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .copy svg {
     grid-area: 1 / 1;
@@ -334,7 +352,7 @@
     transition: opacity 0.25s ease, transform 0.4s var(--ease);
   }
   .copy .ic-check { opacity: 0; transform: scale(0.5); }
-  .copy.done { color: var(--accent); border-color: rgba(124, 156, 255, 0.6); }
+  .copy.done { color: var(--accent); }
   .copy.done .ic-copy { opacity: 0; transform: scale(0.5); }
   .copy.done .ic-check { opacity: 1; transform: none; }
   .copy::after {
@@ -343,13 +361,12 @@
     right: 0;
     bottom: calc(100% + 8px);
     padding: 4px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(124, 156, 255, 0.4);
+    font-family: var(--font-mono);
+    border-radius: 2px;
+    border: 1px solid rgba(250, 70, 22, 0.4);
     background: var(--surface);
     color: var(--accent);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.75rem;
     white-space: nowrap;
     pointer-events: none;
     opacity: 0;
@@ -362,22 +379,14 @@
   a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 
-  /* Entrance animation */
-  .reveal {
-    animation: rise 0.9s var(--ease) backwards;
-    animation-delay: calc(var(--i, 0) * 120ms + 100ms);
-  }
-  @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
-  h1.reveal {
-    animation: rise 0.9s var(--ease) 100ms backwards, sheen 6s ease-in-out 1.6s infinite;
-  }
+  ::selection { background: var(--accent); color: var(--bg); }
 
   /* Century Tower line art */
   .scene {
     position: relative;
-    width: min(100%, 320px);
+    width: min(100%, 340px);
     aspect-ratio: 536 / 690;
-    margin: 0 auto 4px;
+    margin: 0 -20px 4px auto;
     -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 86%);
     mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 86%);
   }
@@ -431,29 +440,17 @@
     align-items: center;
     gap: 12px;
   }
-  .dd.open .dd-toggle { border-color: rgba(124, 156, 255, 0.55); }
 
   .chev {
     display: inline-block;
     width: 8px;
     height: 8px;
-    border-right: 1.5px solid var(--accent);
-    border-bottom: 1.5px solid var(--accent);
+    border-right: 1.5px solid var(--text);
+    border-bottom: 1.5px solid var(--text);
     transform: translateY(-2px) rotate(45deg);
     transition: transform 0.5s var(--ease);
   }
   .dd.open .chev { transform: translateY(2px) rotate(225deg); }
-
-  .ripple {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(124, 156, 255, 0.30);
-    transform: scale(0);
-    opacity: 1;
-    pointer-events: none;
-    animation: ripple 0.7s var(--ease) forwards;
-  }
-  @keyframes ripple { to { transform: scale(1); opacity: 0; } }
 
   .dd-panel {
     display: grid;
@@ -472,36 +469,25 @@
   .resume {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 2px;
     padding: 20px;
-    font-size: 0.85rem;
-    line-height: 1.55;
-  }
-  .resume > section {
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
-  }
-  .dd.open .resume > section {
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
-    transition-delay: calc(var(--k, 0) * 70ms + 180ms);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
   }
   .resume > section + section {
-    margin-top: 22px;
-    padding-top: 20px;
+    margin-top: 18px;
+    padding-top: 16px;
     border-top: 1px solid var(--border);
   }
   .resume h3 {
-    font-size: 0.72rem;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
     font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 12px;
+    color: var(--text);
+    margin: 0 0 10px;
   }
-  .entry + .entry { margin-top: 16px; }
+  .entry + .entry { margin-top: 14px; }
   .row {
     display: flex;
     justify-content: space-between;
@@ -510,11 +496,11 @@
   }
   .role { font-weight: 500; color: var(--text); }
   .sub { color: var(--text); }
-  .meta { color: var(--muted); font-size: 0.8rem; }
-  .resume p { margin: 6px 0 0; color: var(--muted); }
+  .meta { font-family: var(--font-mono); color: var(--muted); font-size: 0.8rem; }
+  .resume p { margin: 6px 0 0; color: var(--muted); text-wrap: pretty; }
   .resume ul { list-style: none; margin: 8px 0 0; padding: 0; }
   .resume li { position: relative; padding-left: 16px; margin: 0 0 6px; color: var(--text); }
-  .resume li::before { content: "\2013"; position: absolute; left: 0; color: var(--accent); }
+  .resume li::before { content: "\2013"; position: absolute; left: 0; color: var(--muted); }
   .skill { margin: 0 0 6px; color: var(--text); }
   .skill b { font-weight: 500; color: var(--muted); }
 
@@ -526,9 +512,7 @@
     justify-content: space-between;
     gap: 4px 12px;
     color: var(--muted);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.85rem;
   }
   .resume > .rtools + section {
     margin-top: 12px;
@@ -539,21 +523,18 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    min-height: 40px;
+    min-height: 44px;
     padding: 0 14px;
     border: 1px solid var(--border);
-    border-radius: 999px;
+    border-radius: 2px;
     background: var(--bg);
-    color: var(--accent);
+    color: var(--text);
     text-decoration: none;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.8rem;
     -webkit-tap-highlight-color: transparent;
-    transition: border-color 0.3s var(--ease), transform 0.3s var(--ease);
+    transition: border-color 0.3s var(--ease);
   }
-  .pill:hover { border-color: rgba(124, 156, 255, 0.6); }
-  .pill:active { transform: scale(0.97); }
+  .pill:hover { border-color: var(--muted); }
   .pill svg {
     width: 16px;
     height: 16px;
@@ -562,9 +543,7 @@
     stroke-width: 1.8;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: transform 0.4s var(--ease);
   }
-  .pill:hover svg { transform: translateY(2px); }
   .switch {
     position: relative;
     flex-shrink: 0;
@@ -583,7 +562,7 @@
     width: 44px;
     height: 24px;
     margin: -12px 0 0 -22px;
-    border-radius: 999px;
+    border-radius: 2px;
     border: 1px solid var(--border);
     background: var(--bg);
     transition: background 0.35s var(--ease), border-color 0.35s var(--ease);
@@ -595,13 +574,13 @@
     left: 2px;
     width: 18px;
     height: 18px;
-    border-radius: 50%;
+    border-radius: 1px;
     background: var(--muted);
     transition: transform 0.4s var(--ease), background 0.35s var(--ease);
   }
   .switch[aria-checked="true"] .track {
-    background: rgba(124, 156, 255, 0.22);
-    border-color: rgba(124, 156, 255, 0.6);
+    background: rgba(250, 70, 22, 0.22);
+    border-color: rgba(250, 70, 22, 0.6);
   }
   .switch[aria-checked="true"] .track::after {
     transform: translateX(20px);
@@ -612,15 +591,27 @@
   .switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 12px; }
 
   .resume.readable {
-    font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.7;
   }
-  .resume.readable .meta { font-size: 0.85rem; }
-  .resume.readable h3 { font-size: 0.75rem; letter-spacing: 0.1em; }
+  .resume.readable .meta { font-size: 0.875rem; }
+  .resume.readable h3 { font-size: 1.15rem; }
   .resume.readable li { margin-bottom: 8px; }
   .resume.flash > section:not(.rtools) { animation: flash 0.45s var(--ease); }
   @keyframes flash { from { opacity: 0.2; } }
+
+  @media (min-width: 700px) { .scene { margin-right: -44px; } }
+
+  @media print {
+    :root { --bg: #fff; --surface: #fff; --text: #000; --muted: #333; --accent: #000; --border: #bbb; --rule: #000; }
+    body { display: block; background: #fff; }
+    .scene, .caption, .actions, .dd-toggle, .rtools, .contact-list, .label, .copy { display: none !important; }
+    header.hero { padding: 0 0 12px; }
+    .subtitle::before { display: none; }
+    .dd-panel { grid-template-rows: 1fr !important; visibility: visible !important; }
+    .dd-pad { padding-top: 0; }
+    .resume { border: 0; padding: 0; background: none; font-size: 10.5pt; }
+  }
 
   @media (max-width: 559px) {
     .contact .btn, .btn.btn-wide { flex-direction: column; align-items: flex-start; justify-content: center; gap: 4px; }
@@ -634,26 +625,25 @@
       animation-delay: 0ms !important;
       transition-duration: 0.01ms !important;
     }
-    .reveal { opacity: 1; transform: none; }
-    h1 { background-position: 0% 0; }
-    .subtitle::before { width: 40px; }
   }
 </style>
 </head>
 <body>
 
-  <div class="backdrop" aria-hidden="true"></div>
-
   <div class="wrap">
     <header class="hero">
-      <h1 class="reveal" style="--i:0">Darren Lin</h1>
-      <p class="subtitle reveal" style="--i:1"><span>Mechanical Engineering Student @ the University of Florida</span></p>
+      <h1>Darren Lin</h1>
+      <p class="subtitle"><span>Mechanical Engineering Student at the University of Florida</span></p>
+      <div class="actions">
+        <a class="primary" href="resume.pdf" download="Darren_Lin_Resume.pdf">Download resume <span class="fmt">PDF, 150 KB</span></a>
+        <a class="quiet" href="#contact">Get in touch</a>
+      </div>
     </header>
 
-    <div class="scene reveal" style="--i:2" role="img" aria-label="Line drawing of Century Tower at the University of Florida">
+    <div class="scene" role="img" aria-label="Line drawing of Century Tower at the University of Florida">
       <svg viewBox="0 24 536 690" preserveAspectRatio="xMidYMin meet" aria-hidden="true">
         <defs>
-          <linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7C9CFF" stop-opacity=".12"/><stop offset="1" stop-color="#7C9CFF" stop-opacity="0"/></linearGradient>
+          <linearGradient id="tg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FA4616" stop-opacity=".12"/><stop offset="1" stop-color="#FA4616" stop-opacity="0"/></linearGradient>
           <mask id="m-trees" maskUnits="userSpaceOnUse" x="0" y="0" width="536" height="860"><rect width="536" height="860" fill="#fff"/><path d="M0 392 Q10 372 22 365 Q34 372 40 386 Q48 396 56 392 Q66 380 80 386 Q92 394 102 390 Q112 382 122 388 Q134 394 146 396 Q156 400 164 412 Q172 420 184 422 Q196 414 204 406 Q212 398 222 406 Q232 414 244 420 Q256 424 264 434 Q270 446 274 462 Q282 470 296 470 Q310 464 324 468 Q338 466 346 474 Q354 480 357 494 L358 556 Q372 568 394 562 Q412 556 420 548 Q430 530 438 506 Q446 500 458 496 Q470 502 482 497 Q494 500 508 495 Q522 498 536 493 L536 860 L0 860 Z" fill="#000"/></mask>
           <mask id="m-chapel" maskUnits="userSpaceOnUse" x="0" y="0" width="536" height="860"><rect width="536" height="860" fill="#fff"/><path d="M0 392 Q10 372 22 365 Q34 372 40 386 Q48 396 56 392 Q66 380 80 386 Q92 394 102 390 Q112 382 122 388 Q134 394 146 396 Q156 400 164 412 Q172 420 184 422 Q196 414 204 406 Q212 398 222 406 Q232 414 244 420 Q256 424 264 434 Q270 446 274 462 Q282 470 296 470 Q310 464 324 468 Q338 466 346 474 Q354 480 357 494 L358 556 Q372 568 394 562 Q412 556 420 548 Q430 530 438 506 Q446 500 458 496 Q470 502 482 497 Q494 500 508 495 Q522 498 536 493 L536 860 L0 860 Z" fill="#000"/><path d="M391 474 Q400 458 416 458 Q434 458 441 476 Q442 492 430 498 L402 498 Q390 490 391 474 Z M409 497 L421 497 L421 530 L409 530 Z" fill="#000"/></mask>
         </defs>
@@ -663,12 +653,14 @@
       </svg>
     </div>
 
+    <p class="caption" aria-hidden="true">Fig. 1&ensp;Century Tower, University of Florida</p>
+
     <main>
       <h2 class="sr-only">Resume</h2>
       <div class="dd" id="resume-dd">
-        <button class="btn dd-toggle reveal" style="--i:3" type="button" aria-expanded="false" aria-controls="resume-panel">
+        <button class="btn dd-toggle" type="button" aria-expanded="false" aria-controls="resume-panel">
           <span class="kind">Resume</span>
-          <span class="detail"><span class="dd-label">View</span><span class="chev" aria-hidden="true"></span></span>
+          <span class="detail"><span class="dd-label">Read online</span><span class="chev" aria-hidden="true"></span></span>
         </button>
 
         <div class="dd-panel" id="resume-panel" role="region" aria-label="Resume">
@@ -789,9 +781,9 @@
         </div>
       </div>
 
-      <h2 class="label reveal" style="--i:4">Contact</h2>
+      <h2 class="label" id="contact">Contact</h2>
       <div class="contact-list">
-        <div class="contact reveal" style="--i:5">
+        <div class="contact">
           <a class="btn" id="c-phone" href="#" aria-label="Phone number. Activate to reveal and call.">
             <span class="kind">Phone</span>
             <span class="detail"><span class="val">&bull;&bull;&bull;-&bull;&bull;&bull;-&bull;&bull;&bull;&bull;</span></span>
@@ -801,7 +793,7 @@
             <svg class="ic-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           </button>
         </div>
-        <div class="contact reveal" style="--i:6">
+        <div class="contact">
           <a class="btn" id="c-email" href="#" aria-label="Email address. Activate to reveal and write an email.">
             <span class="kind">Email</span>
             <span class="detail"><span class="val">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;@&bull;&bull;&bull;&bull;&bull;&bull;.&bull;&bull;&bull;</span></span>
@@ -811,9 +803,9 @@
             <svg class="ic-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
           </button>
         </div>
-        <a class="btn btn-wide reveal" style="--i:7" href="https://www.linkedin.com/in/dlinuf/" target="_blank" rel="noopener noreferrer">
+        <a class="btn btn-wide" href="https://www.linkedin.com/in/dlinuf/" target="_blank" rel="noopener noreferrer">
           <span class="kind">LinkedIn</span>
-          <span class="detail">linkedin.com/in/dlinuf<span class="arrow" aria-hidden="true">&rarr;</span></span>
+          <span class="detail">linkedin.com/in/dlinuf<span class="arrow" aria-hidden="true">&nearr;</span><span class="sr-only"> (opens in a new tab)</span></span>
         </a>
         <noscript><p class="nojs">Turn on JavaScript to see phone and email, or reach out on LinkedIn.</p></noscript>
       </div>
@@ -827,22 +819,10 @@
     var toggle = dd.querySelector(".dd-toggle");
     var label = dd.querySelector(".dd-label");
 
-    toggle.addEventListener("click", function (e) {
-      var r = toggle.getBoundingClientRect();
-      var size = Math.max(r.width, r.height) * 2;
-      var x = e.detail === 0 ? r.width / 2 : e.clientX - r.left;
-      var y = e.detail === 0 ? r.height / 2 : e.clientY - r.top;
-      var ripple = document.createElement("span");
-      ripple.className = "ripple";
-      ripple.style.width = ripple.style.height = size + "px";
-      ripple.style.left = (x - size / 2) + "px";
-      ripple.style.top = (y - size / 2) + "px";
-      toggle.appendChild(ripple);
-      setTimeout(function () { ripple.remove(); }, 700);
-
+    toggle.addEventListener("click", function () {
       var open = dd.classList.toggle("open");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      label.textContent = open ? "Hide" : "View";
+      label.textContent = open ? "Hide" : "Read online";
     });
 
     var resume = dd.querySelector(".resume");
@@ -869,14 +849,6 @@
     try {
       if (localStorage.getItem("resume-readable") === "1") setReadable(true, false);
     } catch (err) {}
-
-    document.querySelectorAll(".btn").forEach(function (el) {
-      el.addEventListener("pointermove", function (e) {
-        var r = el.getBoundingClientRect();
-        el.style.setProperty("--mx", (e.clientX - r.left) + "px");
-        el.style.setProperty("--my", (e.clientY - r.top) + "px");
-      });
-    });
 
     /* Contact protection: phone and email are not in the page source. They are
        assembled in the browser only after a real (trusted) user interaction. */
