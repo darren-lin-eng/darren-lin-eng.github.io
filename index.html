@@ -9,7 +9,8 @@
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://darren-lin-eng.github.io/">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2064%2064%27%3E%3Crect%20width%3D%2764%27%20height%3D%2764%27%20rx%3D%2714%27%20fill%3D%27%230F1115%27%2F%3E%3Crect%20x%3D%271.5%27%20y%3D%271.5%27%20width%3D%2761%27%20height%3D%2761%27%20rx%3D%2712.5%27%20fill%3D%27none%27%20stroke%3D%27%23FA4616%27%20stroke-opacity%3D%27.35%27%20stroke-width%3D%273%27%2F%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23FA4616%27%20stroke-width%3D%275.5%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%3E%3Cpath%20d%3D%27M15%2019V45H23Q33%2045%2033%2032Q33%2019%2023%2019Z%27%2F%3E%3Cpath%20d%3D%27M41%2019V45H52%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="profile">
 <meta property="og:site_name" content="Darren Lin">
 <meta property="og:title" content="Darren Lin | Mechanical Engineering Student">
@@ -140,6 +141,14 @@
     --border: rgba(232, 233, 236, 0.12);
     --rule: rgba(232, 233, 236, 0.32);
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --d1: 0.2s;
+    --d2: 0.4s;
+    --d3: 0.6s;
+    --fs-xs: 0.8rem;
+    --fs-s: 0.95rem;
+    --fs-base: 1rem;
+    --fs-l: 1.15rem;
+    --fs-xl: 1.3rem;
     --font-serif: "IBM Plex Serif", Georgia, "Times New Roman", serif;
     --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -155,9 +164,28 @@
       --rule: rgba(29, 26, 22, 0.5);
     }
   }
+  @media (prefers-contrast: more) {
+    :root {
+      --muted: #B8BCC8;
+      --border: rgba(232, 233, 236, 0.45);
+      --rule: rgba(232, 233, 236, 0.75);
+    }
+  }
+  @media (prefers-contrast: more) and (prefers-color-scheme: light) {
+    :root {
+      --muted: #3D372F;
+      --border: rgba(29, 26, 22, 0.5);
+      --rule: rgba(29, 26, 22, 0.85);
+    }
+  }
+  @media (forced-colors: active) {
+    .primary, .pill, .switch .track { border: 1px solid ButtonText; }
+    .primary:focus-visible, a:focus-visible, button:focus-visible { outline-color: Highlight; }
+  }
 
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scrollbar-gutter: stable; scroll-padding-top: 24px; }
+  a, button { touch-action: manipulation; }
 
   body {
     margin: 0;
@@ -236,11 +264,11 @@
     background: var(--accent);
     color: var(--bg);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: var(--fs-s);
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
   }
-  .primary .fmt { font-family: var(--font-mono); font-weight: 400; font-size: 0.8rem; }
+  .primary .fmt { font-family: var(--font-mono); font-weight: 400; font-size: var(--fs-xs); }
   .primary:hover { background: var(--text); }
   .primary:active { transform: translateY(1px); }
   .primary:focus-visible { outline-color: var(--text); }
@@ -249,16 +277,19 @@
     align-items: center;
     min-height: 44px;
     color: var(--text);
-    font-size: 0.95rem;
+    font-size: var(--fs-s);
     text-decoration: underline;
     text-underline-offset: 5px;
     text-decoration-thickness: 1px;
+    transition: text-decoration-color var(--d1) var(--ease);
   }
+  .quiet:hover { text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+  .quiet:active { transform: translateY(1px); }
   .caption {
     margin: 0 0 40px;
     text-align: right;
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     color: var(--muted);
   }
   #contact { scroll-margin-top: 24px; }
@@ -267,7 +298,7 @@
 
   .label {
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: var(--fs-s);
     color: var(--text);
     margin: 0 0 8px;
   }
@@ -288,7 +319,7 @@
     background: none;
     color: var(--text);
     text-decoration: none;
-    font-size: 0.95rem;
+    font-size: var(--fs-s);
     word-break: break-word;
     -webkit-tap-highlight-color: transparent;
   }
@@ -297,7 +328,7 @@
 
   .btn .kind {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     color: var(--muted);
     flex-shrink: 0;
   }
@@ -322,8 +353,8 @@
   /* Contact rows: link + copy button */
   .contact { display: flex; gap: 0; align-items: stretch; }
   .contact .btn { flex: 1; min-width: 0; }
-  .contact .btn .detail { font-size: min(0.88rem, 4.1vw); }
-  .val.pop { display: inline-block; animation: valin 0.6s var(--ease); }
+  .contact .btn .detail { font-size: min(var(--fs-s), 4.1vw); }
+  .val.pop { display: inline-block; animation: valin var(--d3) var(--ease); }
   @keyframes valin { from { opacity: 0; transform: translateY(5px); } }
 
   .copy {
@@ -341,7 +372,7 @@
     border-radius: 0;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: color 0.3s var(--ease);
+    transition: color var(--d1) var(--ease);
   }
   .copy:hover { color: var(--text); }
   .copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
@@ -354,7 +385,7 @@
     stroke-width: 1.7;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: opacity 0.25s ease, transform 0.4s var(--ease);
+    transition: opacity var(--d1) var(--ease), transform var(--d2) var(--ease);
   }
   .copy .ic-check { opacity: 0; transform: scale(0.5); }
   .copy.done { color: var(--accent); }
@@ -371,15 +402,15 @@
     border: 1px solid rgba(250, 70, 22, 0.4);
     background: var(--surface);
     color: var(--accent);
-    font-size: 0.75rem;
+    font-size: var(--fs-xs);
     white-space: nowrap;
     pointer-events: none;
     opacity: 0;
     transform: translateY(4px);
-    transition: opacity 0.25s ease, transform 0.35s var(--ease);
+    transition: opacity var(--d1) var(--ease), transform var(--d2) var(--ease);
   }
   .copy.done::after { opacity: 1; transform: none; }
-  .nojs { margin: 0 0 12px; font-size: 0.85rem; color: var(--muted); }
+  .nojs { margin: 0 0 12px; font-size: var(--fs-s); color: var(--muted); }
 
   a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
@@ -431,7 +462,7 @@
   .btn.dd-toggle {
     width: 100%;
     font: inherit;
-    font-size: 0.95rem;
+    font-size: var(--fs-s);
     text-align: left;
     cursor: pointer;
     -webkit-appearance: none;
@@ -453,7 +484,7 @@
     border-right: 1.5px solid var(--text);
     border-bottom: 1.5px solid var(--text);
     transform: translateY(-2px) rotate(45deg);
-    transition: transform 0.5s var(--ease);
+    transition: transform var(--d2) var(--ease);
   }
   .dd.open .chev { transform: translateY(2px) rotate(225deg); }
 
@@ -461,12 +492,12 @@
     display: grid;
     grid-template-rows: 0fr;
     visibility: hidden;
-    transition: grid-template-rows 0.6s var(--ease), visibility 0s linear 0.6s;
+    transition: grid-template-rows var(--d3) var(--ease), visibility 0s linear var(--d3);
   }
   .dd.open .dd-panel {
     grid-template-rows: 1fr;
     visibility: visible;
-    transition: grid-template-rows 0.6s var(--ease), visibility 0s;
+    transition: grid-template-rows var(--d3) var(--ease), visibility 0s;
   }
   .dd-inner { overflow: hidden; min-height: 0; }
   .dd-pad { padding-top: 12px; }
@@ -476,7 +507,7 @@
     border: 1px solid var(--border);
     border-radius: 2px;
     padding: 20px;
-    font-size: 1rem;
+    font-size: var(--fs-base);
     line-height: 1.5;
     font-variant-numeric: tabular-nums;
   }
@@ -487,7 +518,7 @@
   }
   .resume h3 {
     font-family: var(--font-serif);
-    font-size: 1.05rem;
+    font-size: var(--fs-l);
     font-weight: 500;
     color: var(--text);
     margin: 0 0 10px;
@@ -501,7 +532,7 @@
   }
   .role { font-weight: 500; color: var(--text); }
   .sub { color: var(--text); }
-  .meta { font-family: var(--font-mono); color: var(--muted); font-size: 0.8rem; }
+  .meta { font-family: var(--font-mono); color: var(--muted); font-size: var(--fs-xs); }
   .resume p { margin: 6px 0 0; color: var(--muted); text-wrap: pretty; }
   .resume ul { list-style: none; margin: 8px 0 0; padding: 0; }
   .resume li { position: relative; padding-left: 16px; margin: 0 0 6px; color: var(--text); }
@@ -517,7 +548,7 @@
     justify-content: space-between;
     gap: 4px 12px;
     color: var(--muted);
-    font-size: 0.85rem;
+    font-size: var(--fs-xs);
   }
   .resume > .rtools + section {
     margin-top: 12px;
@@ -535,11 +566,17 @@
     background: var(--bg);
     color: var(--text);
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     -webkit-tap-highlight-color: transparent;
-    transition: border-color 0.3s var(--ease);
+    transition: border-color var(--d1) var(--ease);
   }
   .pill:hover { border-color: var(--muted); }
+  .pill .fmt { font-family: var(--font-mono); color: var(--muted); }
+  .pill span { white-space: nowrap; }
+  @media (max-width: 359px) {
+    .pill { flex-wrap: wrap; gap: 0 8px; padding: 6px 14px; }
+    .pill .fmt { flex-basis: 100%; padding-left: 24px; }
+  }
   .pill svg {
     width: 16px;
     height: 16px;
@@ -570,7 +607,7 @@
     border-radius: 2px;
     border: 1px solid var(--border);
     background: var(--bg);
-    transition: background 0.35s var(--ease), border-color 0.35s var(--ease);
+    transition: background var(--d2) var(--ease), border-color var(--d2) var(--ease);
   }
   .switch .track::after {
     content: "";
@@ -581,7 +618,7 @@
     height: 18px;
     border-radius: 1px;
     background: var(--muted);
-    transition: transform 0.4s var(--ease), background 0.35s var(--ease);
+    transition: transform var(--d2) var(--ease), background var(--d2) var(--ease);
   }
   .switch[aria-checked="true"] .track {
     background: rgba(250, 70, 22, 0.22);
@@ -596,13 +633,13 @@
   .switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 12px; }
 
   .resume.readable {
-    font-size: 1.05rem;
+    font-size: var(--fs-l);
     line-height: 1.7;
   }
-  .resume.readable .meta { font-size: 0.875rem; }
-  .resume.readable h3 { font-size: 1.15rem; }
+  .resume.readable .meta { font-size: var(--fs-s); }
+  .resume.readable h3 { font-size: var(--fs-xl); }
   .resume.readable li { margin-bottom: 8px; }
-  .resume.flash > section:not(.rtools) { animation: flash 0.45s var(--ease); }
+  .resume.flash > section:not(.rtools) { animation: flash var(--d2) var(--ease); }
   @keyframes flash { from { opacity: 0.2; } }
 
   @media (min-width: 700px) { .scene { margin-right: -44px; } }
@@ -641,7 +678,7 @@
       <h1>Darren Lin</h1>
       <p class="subtitle"><span>Mechanical Engineering Student at the University of Florida</span></p>
       <div class="actions">
-        <a class="primary" href="resume.pdf" download="Darren_Lin_Resume.pdf">Download resume <span class="fmt">PDF, 150 KB</span></a>
+        <a class="primary" href="resume.pdf" download="Darren_Lin_Resume.pdf">Download resume <span class="fmt">PDF, 150&nbsp;KB</span></a>
         <a class="quiet" href="#contact">Contact</a>
       </div>
     </header>
@@ -677,7 +714,8 @@
                 <section class="rtools" style="--k:0">
                   <a class="pill" href="resume.pdf" download="Darren_Lin_Resume.pdf">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
-                    <span>Download PDF</span>
+                    <span>Download resume</span>
+                    <span class="fmt">PDF, 150&nbsp;KB</span>
                   </a>
                   <span class="rt-switch">
                     <span id="sw-label">Easy read</span>
@@ -932,7 +970,7 @@
             statusEl.textContent = "";
           }, 1800);
         }, function () {
-          statusEl.textContent = "Couldn't copy. Select the text instead.";
+          statusEl.textContent = "Couldn\u2019t copy. Select the text instead.";
         });
       });
     });
